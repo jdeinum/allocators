@@ -1,8 +1,8 @@
 use serde::{Deserialize, Serialize};
 use uuid::Uuid;
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Default)]
 pub struct Message {
-    id: Uuid,
-    value: i64,
+    pub id: Uuid,
+    pub value: i64,
 }

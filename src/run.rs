@@ -1,13 +1,19 @@
-use std::alloc::Allocator;
+use crate::server::Server;
+use anyhow::{Context, Result};
 
-use anyhow::Result;
-
-pub async fn run<A: Allocator>(a: A) -> Result<()> {
-    // set the allocator
+pub async fn run() -> Result<()> {
+    // set our allocator
 
     // create the server
+    let server = Server::build().await.context("build server")?;
 
-    // serve
+    // run the server to completion
+    server
+        .run_to_completion()
+        .await
+        .context("run server to completion")?;
+
+    // idk, analyze stuff?
 
     Ok(())
 }

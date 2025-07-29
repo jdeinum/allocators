@@ -1,5 +1,13 @@
-use anyhow::Result;
+use anyhow::{Context, Result};
 
-fn main() -> Result<()> {
+#[tokio::main]
+async fn main() -> Result<()> {
+    // create the allocator
+
+    // run our app to completion
+    allocators::run::run()
+        .await
+        .context("run server to completion")?;
+
     Ok(())
 }
