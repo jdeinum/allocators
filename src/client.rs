@@ -11,6 +11,15 @@ pub struct ClientSettings {
     pub num_messages: usize,
 }
 
+impl ClientSettings {
+    pub fn new(server_port: u16, num_messages: usize) -> Self {
+        Self {
+            server_port,
+            num_messages,
+        }
+    }
+}
+
 pub struct Client {
     pub listener: TcpStream,
 }
@@ -36,10 +45,13 @@ impl Client {
             println!("sending message {i}");
 
             // get message
-            let message = Message::default();
+            let mut message = Message::default();
+            message.value = i as i64;
 
             // serialize the message
-            let s_message = serde_json::to_string(&message).context("convert struct to json")?;
+            let mut s_message =
+                serde_json::to_string(&message).context("convert struct to json")?;
+            s_message.push('\n'); // newline delimited
 
             // send the message, not expecting any response
             self.listener

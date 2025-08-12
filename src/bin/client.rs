@@ -5,15 +5,16 @@ use clap::Parser;
 #[derive(Parser, Debug)]
 pub struct Cli {
     /// The port the server is listening on
-    #[arg(short = 'p', long, value_parser=clap::value_parser!(u16).range(1024..),)]
+    #[arg(short = 'p', long)]
     pub server_port: u16,
 
     /// The number of messages the client sends before expecting a response back
+    #[arg(short = 'n')]
     pub num_messages: usize,
 
     /// Number of seconds between messages
     /// Needs to be <5 because the server is hardcoded to wait a max of 5 seconds :D
-    #[arg(short, long, value_parser=clap::value_parser!(u16).range(1..5),)]
+    #[arg(short = 'b', long)]
     pub secs_between_messages: u64,
 }
 
